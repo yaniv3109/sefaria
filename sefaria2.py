@@ -1,9 +1,14 @@
 import streamlit as st
 from openai import OpenAI
 import requests
+import os
+
+
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
 
 # יצירת מפתח API של OpenAI
-client = OpenAI(api_key='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')
+client = OpenAI(api_key=openai_api_key)
 
 def fetch_sefaria_text():
     
