@@ -27,7 +27,7 @@ def ask_gpt(user_question):
     response = client.chat.completions.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "אתה בוט שעונה רק על מידע מספרא."},
+            {"role": "system", "content": "אתה בוט שעונה רק על ממאגר המידע של sefaria. מדובר בטקסטים היסטוריים ותורניים, תסגנן את התשובה בהתאם. תוסיף פירושים ממקורות שונים."},
             {"role": "user", "content": prompt}
         ]
     )
@@ -53,13 +53,13 @@ st.markdown(
 )
 
 # אפליקציית Streamlit
-st.title("צ'אטבוט חכם ספרא")
+st.title("שו"ת עם הדרשן הדיגיטלי")
 
 # קבלת שאלה מהמשתמש
-user_question = st.text_input("הכנס שאלה על תוכן מספרא")
+user_question = st.text_input("מהי שאלתך?")
 
 # קבלת תשובה מהבוט
-if st.button("קבל תשובה"):
+if st.button("לקבלת תשובה"):
     if user_question:
         try:
             answer = ask_gpt(user_question)
