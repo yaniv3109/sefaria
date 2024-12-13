@@ -53,7 +53,7 @@ st.markdown(
 )
 
 # אפליקציית Streamlit
-st.title("שו"ת עם הדרשן הדיגיטלי")
+st.title('שו"ת עם הדרשן הדיגיטלי')
 
 # קבלת שאלה מהמשתמש
 user_question = st.text_input("מהי שאלתך?")
