@@ -3,7 +3,8 @@ from openai import OpenAI
 import requests
 import os
 
-temperature = 0.75
+temperature = 0.2
+max_tokens = 500
 
 # מפתח API
 openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -38,7 +39,8 @@ def ask_gpt(user_question):
              """},
             {"role": "user", "content": prompt}
         ],
-        temperature=temperature
+        temperature = temperature,
+        max_tokens = max_tokens
     )
     return response.choices[0].message.content
 
