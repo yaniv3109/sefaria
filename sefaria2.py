@@ -25,7 +25,7 @@ def ask_gpt(user_question):
     prompt = f"השאלה: {user_question}\nענה בהתבסס על הטקסט בלבד."
     
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": """
             אתה בוט שעונה על שאלות ממאגר המידע של Sefaria.
