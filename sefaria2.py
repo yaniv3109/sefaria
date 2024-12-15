@@ -3,6 +3,8 @@ from openai import OpenAI
 import requests
 import os
 
+temperature = 0.75
+
 # מפתח API
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
@@ -35,7 +37,8 @@ def ask_gpt(user_question):
             בתשבותך תכלול פירושים ממקורות שונים, קשרים בין טקסטים שונים והפניות צולבות.
              """},
             {"role": "user", "content": prompt}
-        ]
+        ],
+        temperature=temperature
     )
     return response.choices[0].message.content
 
