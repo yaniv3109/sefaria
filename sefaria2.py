@@ -12,6 +12,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
 prompt_file_name = "prompt_he.txt"
+content = ""
 
 # מוודאים שהקובץ נמצא בתיקייה הנוכחית
 current_dir = os.getcwd()  # מחזיר את הנתיב לתיקייה הנוכחית
@@ -29,7 +30,6 @@ except Exception as e:
 
 
 print(content)
-
 
 
 # יצירת מפתח API של OpenAI
