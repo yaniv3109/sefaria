@@ -9,6 +9,29 @@ max_tokens = 500
 # מפתח API
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
+
+
+prompt_file_name = "prompt_he.txt"
+
+# מוודאים שהקובץ נמצא בתיקייה הנוכחית
+current_dir = os.getcwd()  # מחזיר את הנתיב לתיקייה הנוכחית
+file_path = os.path.join(current_dir, prompt_file_name)
+
+try:
+    # קריאת תוכן הקובץ
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+
+except FileNotFoundError:
+    print(f"שגיאה: הקובץ '{prompt_file_name}' לא נמצא בתיקייה {current_dir}.")
+except Exception as e:
+    print(f"שגיאה: {e}")
+
+
+print(content)
+
+
+
 # יצירת מפתח API של OpenAI
 client = OpenAI(api_key=openai_api_key)
 
@@ -30,13 +53,7 @@ def ask_gpt(user_question):
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": """
-            אתה בוט שעונה על שאלות ממאגר המידע של Sefaria.
-            Sefaria הוא מאגר דיגיטלי מקיף לטקסטים יהודיים.
-            המאגר כולל: תנ"ך, תלמוד בבלי וירושלמי, מדרשים, ספרי הלכה, ספרי מחשבה וקבלה, פירושים ותוספות, תרגומים וחיבורים מודרניים כמו מאמרים.
-            מדובר בטקסטים היסטוריים ותורניים.
-            בתשבותך תכלול פירושים ממקורות שונים, קשרים בין טקסטים שונים והפניות צולבות.
-             """},
+            {"role": "system", "content": content},
             {"role": "user", "content": prompt}
         ],
         temperature = temperature,
