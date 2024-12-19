@@ -91,20 +91,24 @@ def verify_recaptcha(response_token):
 # אפליקציית Streamlit
 st.title('שו"ת עם הדרשן הדיגיטלי')
 
-# קבלת טוקן reCAPTCHA מהמשתמש
-recaptcha_token = st.text_input("Recaptcha Token", type="hidden", key="recaptcha_token")
+# משתנה פנימי לאחסון טוקן reCAPTCHA
+recaptcha_token = st.session_state.get("recaptcha_token", "")
 
+# קוד JavaScript להפקת טוקן reCAPTCHA
 st.markdown(
     f"""
     <script src="https://www.google.com/recaptcha/api.js?render={RECAPTCHA_SITE_KEY}"></script>
     <script>
         grecaptcha.ready(function() {{
             grecaptcha.execute('{RECAPTCHA_SITE_KEY}', {{action: 'submit'}}).then(function(token) {{
-                const input = document.getElementById('recaptcha_token');
-                input.value = token;
+                const tokenInput = document.getElementById('recaptcha-token');
+                tokenInput.value = token;
+                const event = new Event('input', {{ bubbles: true }});
+                tokenInput.dispatchEvent(event);
             }});
         }});
     </script>
+    <input type="hidden" id="recaptcha-token" oninput="streamlit.setComponentValue(this.value)" />
     """,
     unsafe_allow_html=True,
 )
@@ -136,4 +140,5 @@ if st.button("לקבלת תשובה"):
             st.error("אימות reCAPTCHA נכשל. נסה שוב.")
     else:
         st.error("לא התקבל טוקן reCAPTCHA. רענן את הדף ונסה שוב.")
+
 
